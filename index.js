@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json())
 
-app.get('/', (req, res) => res.send("Hello World!"))
+app.get('/', (req, res) => res.send("Hello 3m elnas!"))
 
 app.post('/scrapingData', async (req, res) => {
     const { urls} = req.body;
