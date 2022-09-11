@@ -16,7 +16,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => res.send("Hello World!"))
 
-app.post('/scrapingData', async (req, res) => {
+app.get('/scrapingData', async (req, res) => {
     const { urls } = req.body;
 
     const browser = await puppeteer.launch();
@@ -31,7 +31,7 @@ app.post('/scrapingData', async (req, res) => {
     writeFile("names.txt" , names.join("\r\n"))
 
     // let result = await scrapProduct(urls)
-
+    res.send("Hello World 22!")
     res.json({ message: "Done"})
 })
 
