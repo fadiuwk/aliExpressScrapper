@@ -65,7 +65,7 @@ async function AliexpressProductScraper (productId)  {
             }
         };
         console.log(json);
-        return json;
+        return descriptionData;
 
     } catch (error) {
         console.log('somthing error , please try again....', error);
