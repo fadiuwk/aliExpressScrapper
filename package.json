@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "import Product from aliExpress site to your store",
   "main": "index.js",
-  
   "scripts": {
     "start": "node index.js"
   },
@@ -11,12 +10,17 @@
     "node": "16.14.2"
   },
   "keywords": [
-    "hitop" , "scrapper" , "aliExpress" , "etejar" , "importProduct"
+    "hitop",
+    "scrapper",
+    "aliExpress",
+    "etejar",
+    "importProduct"
   ],
   "author": "FADAWY",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "nanoid": "^3.3.4",
     "puppeteer": "^17.1.3"

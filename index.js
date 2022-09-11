@@ -1,12 +1,12 @@
+require('dotenv').config()
 const express = require("express");
 const puppeteer = require('puppeteer');
 const { nanoid } = require('nanoid');
-const cheerio = require('cheerio');
+const port = process.env.PORT;
 
-const aliExpressScraper = require('./aliexpressProductScraper');
+const aliExpressScraper = require('./aliexpressProductScraper')
 
 const app = express();
-const port = 3000
 
 app.use(express.json())
 
@@ -56,6 +56,7 @@ const scrapProduct = async (urls) => {
         return aliProducts;
 
     } catch (e) {
+        // res.send({ data: null });
         console.log('something error , please try again...' , e)
 
     } finally {
