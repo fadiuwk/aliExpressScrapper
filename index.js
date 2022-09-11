@@ -2,7 +2,8 @@ require('dotenv').config()
 const express = require("express");
 const puppeteer = require('puppeteer');
 const { nanoid } = require('nanoid');
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
+var userAgent = require("user-agents");
 
 const aliExpressScraper = require('./aliexpressProductScraper')
 
@@ -26,11 +27,14 @@ app.post('/scrapingData', async (req, res) => {
 const scrapProduct = async (urls) => {
 
     let aliProducts = [];
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    let browser = await puppeteer.launch({
+        args: ["--no-sandbox"],
+    });
+    let page = await browser.newPage();
 
     try {
         for (let i = 0; i < urls.length; i++) {
+            await page.setUserAgent(userAgent.toString());
             await page.goto(urls[i], {
                 waitUntil: 'networkidle2', timeout: 0
             });
@@ -56,7 +60,6 @@ const scrapProduct = async (urls) => {
         return aliProducts;
 
     } catch (e) {
-        // res.send({ data: null });
         console.log('something error , please try again...' , e)
 
     } finally {
