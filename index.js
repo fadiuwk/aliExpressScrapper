@@ -16,16 +16,13 @@ const url = 'https://ar.aliexpress.com/item/1005004688271277.html?spm=a2g0o.prod
 
 app.get('/', (req, res) => res.send("Hello 3m elnas!"))
 
-app.post('/scrapingData', async (req, res) => {
+app.get('/scrapingData', async (req, res) => {
     // const { urls} = req.body;
 
     axios(url)
         .then(async (response) => {
             let aliProducts = [];
-            const browser = await puppeteer.launch({
-                headless: true,
-                ignoreDefaultArgs: ['--disable-extensions']
-            });
+            const browser = await puppeteer.launch({});
             const page = await browser.newPage();
         
             try {
