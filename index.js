@@ -4,6 +4,8 @@ const puppeteer = require('puppeteer');
 const { nanoid } = require('nanoid');
 const port = process.env.PORT || 3000;
 
+var userAgent = require("user-agents");
+
 const aliExpressScraper = require('./aliexpressProductScraper')
 
 const app = express();
@@ -30,6 +32,7 @@ const scrapProduct = async (urls) => {
     const page = await browser.newPage();
 
     try {
+        await page.setUserAgent(userAgent.toString());
         for (let i = 0; i < urls.length; i++) {
             await page.goto(urls[i], {
                 waitUntil: 'networkidle2', timeout: 0
