@@ -15,17 +15,7 @@ const url = 'https://www.theguardian.com/us'
 app.get('/', (req, res) => res.send("Hello World!"))
 
 app.get('/home', async (req, res) => {
-    const result = {};
-    await axios().then(res => result = res)
-    res.send({result})
-})
-
-// app.get('/scrapingData', async (req, res) => {
-
-//     res.json({ message: "Done"})
-// })
-
-axios(url)
+    axios(url)
     .then(res => {
         const html = res.html;
         const $ = cheerio.load(html);
@@ -39,9 +29,11 @@ axios(url)
             })
             
         })
-        console.log({articles});
-        return articles;
+        // console.log({articles});
+        res.json({articles})
     }).catch(error => console.log(error))
+})
+
 
 
 app.listen(port, () =>  console.log(`server running on port.....${port}`))
