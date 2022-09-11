@@ -28,14 +28,17 @@ app.post('/scrapingData', async (req, res) => {
 const scrapProduct = async (urls) => {
 
     let aliProducts = [];
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        headless: true,
+        ignoreDefaultArgs: ['--disable-extensions']
+    });
     const page = await browser.newPage();
 
     try {
         await page.setUserAgent(userAgent.toString());
         for (let i = 0; i < urls.length; i++) {
             await page.goto(urls[i], {
-                waitUntil: 'networkidle2', timeout: 0
+                waitUntil: 'networkidle2', timeout: 30000
             });
             const id = Number(urls[i].split('/')[4].split('.')[0]);
             const aliProduct = await aliExpressScraper(id);
