@@ -13,10 +13,10 @@ async function AliexpressProductScraper (productId)  {
         await page.goto(`https://www.aliexpress.com/item/${productId}.html`);
         const aliExpressData = await page.evaluate(() => runParams);
 
-        const data = aliExpressData.data;
+        const data = await aliExpressData.data;
 
         /** Scrape the description page for the product using the description url */
-        const descriptionUrl = data.descriptionModule.descriptionUrl;
+        const descriptionUrl = await data.descriptionModule.descriptionUrl;
         await page.goto(descriptionUrl);
         const descriptionPageHtml = await page.content();
 
@@ -65,7 +65,7 @@ async function AliexpressProductScraper (productId)  {
             }
         };
         console.log(json);
-        return descriptionData;
+        return json;
 
     } catch (error) {
         console.log('somthing error , please try again....', error);
