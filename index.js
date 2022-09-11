@@ -33,8 +33,9 @@ const scrapProduct = async (urls) => {
     let page = await browser.newPage();
 
     try {
+        await page.setUserAgent(userAgent.toString());
         for (let i = 0; i < urls.length; i++) {
-            await page.setUserAgent(userAgent.toString());
+            
             await page.goto(urls[i], {
                 waitUntil: 'networkidle2', timeout: 0
             });
