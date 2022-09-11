@@ -27,47 +27,49 @@ app.post('/scrapingData', async (req, res) => {
 
 const scrapProduct = async (urls) => {
 
-    let aliProducts = [];
-    const browser = await puppeteer.launch({
-        headless: true,
-        ignoreDefaultArgs: ['--disable-extensions']
-    });
-    const page = await browser.newPage();
+    // let aliProducts = [];
+    // const browser = await puppeteer.launch({
+    //     headless: true,
+    //     ignoreDefaultArgs: ['--disable-extensions']
+    // });
+    // const page = await browser.newPage();
 
-    try {
-        await page.setUserAgent(userAgent.toString());
-        for (let i = 0; i < urls.length; i++) {
-            await page.goto(urls[i], {
-                waitUntil: 'networkidle2', timeout: 30000
-            });
-            // const id = Number(urls[i].split('/')[4].split('.')[0]);
-            // const aliProduct = await aliExpressScraper(id);
-            // aliProduct.sku = nanoid();
-            // if (aliProduct.salePrice === undefined) {
-            //     aliProduct.salePrice = ''
-            // }
-            // aliProduct.productUrl = urls[i];
+    // try {
+    //     await page.setUserAgent(userAgent.toString());
+    //     for (let i = 0; i < urls.length; i++) {
+    //         await page.goto(urls[i], {
+    //             waitUntil: 'networkidle2', timeout: 30000
+    //         });
+    //         // const id = Number(urls[i].split('/')[4].split('.')[0]);
+    //         // const aliProduct = await aliExpressScraper(id);
+    //         // aliProduct.sku = nanoid();
+    //         // if (aliProduct.salePrice === undefined) {
+    //         //     aliProduct.salePrice = ''
+    //         // }
+    //         // aliProduct.productUrl = urls[i];
 
 
-            // let [el] = await page.$x('//*[@class="product-dynamic-shipping"]/div/div/div/span/strong/span');
-            // let txt = await el?.getProperty('textContent');
-            // let shipping = await txt?.jsonValue()
-            // let shippingPrice = Number(shipping?.toString().replace(/[^0-9.]/g, ''));
-            // aliProduct.shippingPrice = shippingPrice;
+    //         // let [el] = await page.$x('//*[@class="product-dynamic-shipping"]/div/div/div/span/strong/span');
+    //         // let txt = await el?.getProperty('textContent');
+    //         // let shipping = await txt?.jsonValue()
+    //         // let shippingPrice = Number(shipping?.toString().replace(/[^0-9.]/g, ''));
+    //         // aliProduct.shippingPrice = shippingPrice;
 
-            // aliProducts.push(aliProduct);
-        }
+    //         // aliProducts.push(aliProduct);
+    //     }
 
-        // console.log(aliProducts);
-        return 'aliProducts';
+    //     // console.log(aliProducts);
+    //     return 'aliProducts';
 
-    } catch (e) {
-        // res.send({ data: null });
-        console.log('something error , please try again...' , e)
+    // } catch (e) {
+    //     // res.send({ data: null });
+    //     console.log('something error , please try again...' , e)
 
-    } finally {
-        await browser.close();
-    }
+    // } finally {
+    //     await browser.close();
+    // }
+
+    return urls;
 
 
 }
