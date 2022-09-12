@@ -55,6 +55,8 @@ app.get('/scrapingData', async (req, res) => {
             } catch (e) {
                 console.log('something error , please try again...', e)
 
+            } finally {
+                await browser.close()
             }
         })
 
