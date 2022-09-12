@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require("express");
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const { nanoid } = require('nanoid');
 const port = process.env.PORT || 3000;
 const { default: axios } = require('axios');
