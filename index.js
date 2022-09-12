@@ -22,11 +22,14 @@ app.get('/scrapingData', async (req, res) => {
     axios(url)
         .then(async (response) => {
             let aliProducts = [];
-            const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox']});
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: ['--use-gl=egl'],
+            });
             const page = await browser.newPage();
-        
+
             try {
-                
+
                 await page.goto(url, {
                     waitUntil: 'networkidle2', timeout: 0
                 });
@@ -37,24 +40,24 @@ app.get('/scrapingData', async (req, res) => {
                     aliProduct.salePrice = ''
                 }
                 aliProduct.productUrl = url;
-    
-    
+
+
                 let [el] = await page.$x('//*[@class="product-dynamic-shipping"]/div/div/div/span/strong/span');
                 let txt = await el?.getProperty('textContent');
                 let shipping = await txt?.jsonValue()
                 let shippingPrice = Number(shipping?.toString().replace(/[^0-9.]/g, ''));
                 aliProduct.shippingPrice = shippingPrice;
-    
+
                 aliProducts.push(shippingPrice);
 
                 res.json({ message: "Done", aliProducts })
-        
+
             } catch (e) {
                 console.log('something error , please try again...', e)
-        
+
             }
         })
-    
+
 })
 
 
