@@ -1,22 +1,33 @@
-const express = require("express");
+// const express = require("express");/
 const puppeteer = require('puppeteer');   
 const cheerio = require('cheerio');
 
 
 async function AliexpressProductScraper (productId)  {
 
-    const browser = await puppeteer.launch();
+    console.log("5-1");
+
+    const browser = await puppeteer.launch({
+        //executablePath: '/usr/bin/chromium',
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox','--use-gl=egl'],
+        ignoreDefaultArgs:
+        ['--disable-extensions']
+    });
+    console.log("5-2");
+
     const page = await browser.newPage();
+    console.log("5-3");
 
     try {
         /** Scrape the aliexpress product page for details */
         await page.goto(`https://www.aliexpress.com/item/${productId}.html`);
         const aliExpressData = await page.evaluate(() => runParams);
 
-        const data = await aliExpressData.data;
+        const data = aliExpressData.data;
 
         /** Scrape the description page for the product using the description url */
-        const descriptionUrl = await data.descriptionModule.descriptionUrl;
+        const descriptionUrl = data.descriptionModule.descriptionUrl;
         await page.goto(descriptionUrl);
         const descriptionPageHtml = await page.content();
 
